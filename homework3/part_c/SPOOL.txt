@@ -1,0 +1,92 @@
+SQL> 
+SQL> SELECT to_char(sysdate,'DD MM YYYY Year Month Day HH:MI:SS Am') FROM dual;
+
+TO_CHAR(SYSDATE,'DDMMYYYYYEARMONTHDAYHH:MI:SSAM')                               
+--------------------------------------------------------------------------------
+05 02 2024 Twenty Twenty-Four February  Monday    08:41:19 Am                   
+
+SQL> 
+SQL> 
+SQL> CREATE TABLE FACULTY (
+  2      FID NUMBER ,
+  3      FName VARCHAR2(100),
+  4      Salary NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE STUDENT (
+  2      StudentID NUMBER  ,
+  3      StudentName VARCHAR2(100)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE GRADE (
+  2      StudentID NUMBER  ,
+  3      CourseNo NUMBER  ,
+  4      GRADE VARCHAR2(200)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE COURSE (
+  2      CourseNo NUMBER  ,
+  3      CourseName VARCHAR2(200)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE COURSE_SECTION (
+  2      CourseNo NUMBER,
+  3      CourseName VARCHAR2(200),
+  4      SectionID NUMBER,
+  5      FID NUMBER
+  6      );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> DESCRIBE FACULTY;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FID                                                NUMBER
+ FNAME                                              VARCHAR2(100)
+ SALARY                                             NUMBER
+
+SQL> DESCRIBE STUDENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENTID                                          NUMBER
+ STUDENTNAME                                        VARCHAR2(100)
+
+SQL> DESCRIBE GRADE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENTID                                          NUMBER
+ COURSENO                                           NUMBER
+ GRADE                                              VARCHAR2(200)
+
+SQL> DESCRIBE COURSE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSENO                                           NUMBER
+ COURSENAME                                         VARCHAR2(200)
+
+SQL> DESCRIBE COURSE_SECTION;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSENO                                           NUMBER
+ COURSENAME                                         VARCHAR2(200)
+ SECTIONID                                          NUMBER
+ FID                                                NUMBER
+
+SQL> 
+SQL> 
+SQL> 
+SQL> SPOOL OFF;
