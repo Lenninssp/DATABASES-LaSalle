@@ -1,0 +1,438 @@
+SQL> 
+SQL> CREATE TABLE LOCATION (
+  2      LID NUMBER,
+  3      Building VARCHAR2(50),
+  4      RegID NUMBER,
+  5      CONSTRAINT LID_PK PRIMARY KEY(LID)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE REGION (
+  2      RegID NUMBER,
+  3      RegionName VARCHAR2(50),
+  4      CONSTRAINT RegID_PK PRIMARY KEY(RegID)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE DEPARTMENT (
+  2      DID NUMBER,
+  3      Dept VARCHAR2(50),
+  4      LID NUMBER,
+  5      CONSTRAINT DID_PK PRIMARY KEY(DID),
+  6      CONSTRAINT LID_FK FOREIGN KEY (LID) REFERENCES LOCATION(LID)
+  7  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE EMPLOYEE (
+  2      EID NUMBER,
+  3      Name VARCHAR2(50),
+  4      Hiredate DATE,
+  5      DID NUMBER,
+  6      CONSTRAINT EID_PK PRIMARY KEY(EID),
+  7      CONSTRAINT DID_FK FOREIGN KEY (DID) REFERENCES DEPARTMENT(DID)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE JOB (
+  2      JID NUMBER,
+  3      Descr VARCHAR2(50),
+  4      Skill_Required VARCHAR2(100),
+  5      CONSTRAINT JID_PK PRIMARY KEY(JID)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE EMP_JOB (
+  2      EID NUMBER,
+  3      JID NUMBER,
+  4      Date_assigned DATE,
+  5      CONSTRAINT EID_JID_PK PRIMARY KEY(EID, JID),
+  6      CONSTRAINT EID_FK FOREIGN KEY (EID) REFERENCES EMPLOYEE(EID),
+  7      CONSTRAINT JID_FK FOREIGN KEY (JID) REFERENCES JOB(JID)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> ALTER TABLE LOCATION ADD CONSTRAINT LOCATION_REGID_FK FOREIGN KEY (RegID) REFERENCES REGION(RegID);
+
+Table altered.
+
+SQL> ALTER TABLE EMPLOYEE DROP COLUMN Salary;
+ALTER TABLE EMPLOYEE DROP COLUMN Salary
+                                 *
+ERROR at line 1:
+ORA-00904: "SALARY": invalid identifier 
+
+
+SQL> 
+SQL> DESC LOCATION
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ LID                                       NOT NULL NUMBER
+ BUILDING                                           VARCHAR2(50)
+ REGID                                              NUMBER
+
+SQL> DESC DEPARTMENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DID                                       NOT NULL NUMBER
+ DEPT                                               VARCHAR2(50)
+ LID                                                NUMBER
+
+SQL> DESC EMPLOYEE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                       NOT NULL NUMBER
+ NAME                                               VARCHAR2(50)
+ HIREDATE                                           DATE
+ DID                                                NUMBER
+
+SQL> DESC JOB
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ JID                                       NOT NULL NUMBER
+ DESCR                                              VARCHAR2(50)
+ SKILL_REQUIRED                                     VARCHAR2(100)
+
+SQL> DESC EMP_JOB
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                       NOT NULL NUMBER
+ JID                                       NOT NULL NUMBER
+ DATE_ASSIGNED                                      DATE
+
+SQL> DESC REGION;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGID                                     NOT NULL NUMBER
+ REGIONNAME                                         VARCHAR2(50)
+
+SQL> 
+SQL> SELECT table_name, column_name, data_type, data_length
+  2  FROM user_tab_columns;
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+DEPARTMENT                                                                      
+DID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+DEPARTMENT                                                                      
+DEPT                                                                            
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+DEPARTMENT                                                                      
+LID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMPLOYEE                                                                        
+EID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMPLOYEE                                                                        
+NAME                                                                            
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMPLOYEE                                                                        
+HIREDATE                                                                        
+DATE                                                                            
+          7                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMPLOYEE                                                                        
+DID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMP_JOB                                                                         
+EID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMP_JOB                                                                         
+JID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+EMP_JOB                                                                         
+DATE_ASSIGNED                                                                   
+DATE                                                                            
+          7                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+JOB                                                                             
+JID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+JOB                                                                             
+DESCR                                                                           
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+JOB                                                                             
+SKILL_REQUIRED                                                                  
+VARCHAR2                                                                        
+        100                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+LOCATION                                                                        
+LID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+LOCATION                                                                        
+BUILDING                                                                        
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+LOCATION                                                                        
+REGID                                                                           
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+REGION                                                                          
+REGID                                                                           
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+REGION                                                                          
+REGIONNAME                                                                      
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+18 rows selected.
+
+SQL> 
+SQL> SELECT constraint_name, constraint_type
+  2  FROM user_constraints;
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+LID_FK                                                                          
+R                                                                               
+                                                                                
+LOCATION_REGID_FK                                                               
+R                                                                               
+                                                                                
+DID_FK                                                                          
+R                                                                               
+                                                                                
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+EID_FK                                                                          
+R                                                                               
+                                                                                
+JID_FK                                                                          
+R                                                                               
+                                                                                
+LID_PK                                                                          
+P                                                                               
+                                                                                
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+REGID_PK                                                                        
+P                                                                               
+                                                                                
+DID_PK                                                                          
+P                                                                               
+                                                                                
+EID_PK                                                                          
+P                                                                               
+                                                                                
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+JID_PK                                                                          
+P                                                                               
+                                                                                
+EID_JID_PK                                                                      
+P                                                                               
+                                                                                
+
+11 rows selected.
+
+SQL> 
+SQL> SPOOL OFF;
