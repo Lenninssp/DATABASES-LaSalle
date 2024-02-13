@@ -63,17 +63,6 @@ SQL> CREATE TABLE EMP_JOB (
 Table created.
 
 SQL> 
-SQL> ALTER TABLE LOCATION ADD CONSTRAINT LOCATION_REGID_FK FOREIGN KEY (RegID) REFERENCES REGION(RegID);
-
-Table altered.
-
-SQL> ALTER TABLE EMPLOYEE DROP COLUMN Salary;
-ALTER TABLE EMPLOYEE DROP COLUMN Salary
-                                 *
-ERROR at line 1:
-ORA-00904: "SALARY": invalid identifier 
-
-
 SQL> 
 SQL> DESC LOCATION
  Name                                      Null?    Type
@@ -386,10 +375,10 @@ C
 LID_FK                                                                          
 R                                                                               
                                                                                 
-LOCATION_REGID_FK                                                               
+DID_FK                                                                          
 R                                                                               
                                                                                 
-DID_FK                                                                          
+EID_FK                                                                          
 R                                                                               
                                                                                 
 
@@ -397,11 +386,11 @@ CONSTRAINT_NAME
 --------------------------------------------------------------------------------
 C                                                                               
 -                                                                               
-EID_FK                                                                          
-R                                                                               
-                                                                                
 JID_FK                                                                          
 R                                                                               
+                                                                                
+REGID_PK                                                                        
+P                                                                               
                                                                                 
 LID_PK                                                                          
 P                                                                               
@@ -411,13 +400,13 @@ CONSTRAINT_NAME
 --------------------------------------------------------------------------------
 C                                                                               
 -                                                                               
-REGID_PK                                                                        
-P                                                                               
-                                                                                
 DID_PK                                                                          
 P                                                                               
                                                                                 
 EID_PK                                                                          
+P                                                                               
+                                                                                
+JID_PK                                                                          
 P                                                                               
                                                                                 
 
@@ -425,14 +414,11 @@ CONSTRAINT_NAME
 --------------------------------------------------------------------------------
 C                                                                               
 -                                                                               
-JID_PK                                                                          
-P                                                                               
-                                                                                
 EID_JID_PK                                                                      
 P                                                                               
                                                                                 
 
-11 rows selected.
+10 rows selected.
 
 SQL> 
 SQL> SPOOL OFF;
