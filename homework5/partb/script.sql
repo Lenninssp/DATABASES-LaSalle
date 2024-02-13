@@ -1,0 +1,63 @@
+
+/ as sysdba
+SELECT to_char(sysdate,'DD MM YYYY Year Month Day HH:MI:SS Am') FROM dual;
+DROP USER c##lennin_L4Q1 CASCADE;
+CREATE USER c##lennin_L4Q1 IDENTIFIED BY 123;
+GRANT CONNECT, RESOURCE, DBA TO c##lennin_L4Q1;
+ALTER USER c##lennin_L4Q1 QUOTA 100M on users;
+CONNECT c##lennin_L4Q1/123;
+
+SPOOL C:\Users\lenni\Documentos\lasalle\DATABASES\HOMEWORK5\partb\SPOOL.txt;
+
+CREATE TABLE CUSTOMER (
+    CustID NUMBER,
+    CustName VARCHAR2(50) NOT NULL,
+    Phone NUMBER,
+    CONSTRAINT CustID_PK PRIMARY KEY(CustID)
+);
+
+CREATE TABLE ORDERS(
+    OID NUMBER,
+    Odate DATE,
+    CustID NUMBER NOT NULL,
+    CONSTRAINT OID_PK PRIMARY KEY(OID),
+    CONSTRAINT CustID_FK FOREIGN KEY (CustID) REFERENCES CUSTOMER (CustID)
+);
+
+CREATE TABLE PRODUCT (
+    ProductID NUMBER,
+    Description VARCHAR2(50) NOT NULL,
+    Price NUMBER CHECK (Price >= 0),
+    CONSTRAINT ProductID_PK PRIMARY KEY(ProductID)
+);
+
+CREATE TABLE ORDER_LINE(
+    ProductID NUMBER,
+    OID NUMBER,
+    Quantity NUMBER,
+    CONSTRAINT ProductID_OID_PK PRIMARY KEY (ProductID, OID),
+    CONSTRAINT ProductID_FK FOREIGN KEY (ProductID) REFERENCES PRODUCT (ProductID),
+    CONSTRAINT OID_FK FOREIGN KEY (OID) REFERENCES ORDERS (OID)
+);
+
+CREATE TABLE SUPPLIER (
+    Supplier_ID NUMBER,
+    Supplier_Name VARCHAR2(50) NOT NULL,
+    CONSTRAINT Supplier_ID_PK PRIMARY KEY (Supplier_ID)
+);
+
+
+
+DESC LOCATION
+DESC ORDERS
+DESC PRODUCT
+DESC ORDER_LINE
+DESC SUPPLIER;
+
+SELECT table_name, column_name, data_type, data_length
+FROM user_tab_columns;
+
+SELECT constraint_name, constraint_type
+FROM user_constraints;
+
+SPOOL OFF;
