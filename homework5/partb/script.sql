@@ -7,7 +7,7 @@ GRANT CONNECT, RESOURCE, DBA TO c##lennin_L4Q1;
 ALTER USER c##lennin_L4Q1 QUOTA 100M on users;
 CONNECT c##lennin_L4Q1/123;
 
-SPOOL C:\Users\lenni\Documentos\lasalle\DATABASES\HOMEWORK5\partb\SPOOL.txt;
+SPOOL C:\Users\lenni\Escritorio\SPOOLB.txt
 
 CREATE TABLE CUSTOMER (
     CustID NUMBER,
