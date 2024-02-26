@@ -62,6 +62,12 @@ CREATE TABLE ENROLLMENT(
 
 INSERT INTO COURSE (CourseID, CourseName, Credits) VALUES (1, 'Database', 3);
 
+INSERT INTO LOCATION (LocID, Building,Room) VALUES (1, 'COCO', 5);
+
+INSERT INTO TERM (TermID, Descriptionn, Status) VALUES (1, 'N/A', 'OPEN');
+
+INSERT INTO STUDENT (StudID, SName, Birthdate) VALUES (1, 'LENNIN', sysdate+1);
+
 INSERT INTO COURSE_SECTION (CSectionID, CourseID, TermID, LocID, MaxCapacity) 
 VALUES (14, 1, 1, 1, 10);
 
