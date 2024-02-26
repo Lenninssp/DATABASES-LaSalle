@@ -12,7 +12,7 @@ CREATE TABLE student(
     birthdate DATE);
 
 CREATE TABLE dept(
-    deptno NUMBER CONSTRAINT deptno_PK PRIMARY KEY,
+    deptno NUMBER CONSTRAINT dept_deptno_PK PRIMARY KEY,
     dname VARCHAR(40) CONSTRAINT dept_deptno_NN NOT NULL,
     loc VARCHAR(40));
 
