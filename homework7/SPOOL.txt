@@ -1,0 +1,99 @@
+SQL> 
+SQL> SELECT s.skill_description
+  2  FROM skill s
+  3  INNER JOIN consultant_skill cs ON s.skill_id = cs.skill_id
+  4  WHERE cs.c_id = 100;
+
+SKILL_DESCRIPTION                                                               
+--------------------------------------------------                              
+VB .NET Programming                                                             
+Java Programming                                                                
+Oracle Developer Programming                                                    
+
+SQL> 
+SQL> SELECT s.skill_description
+  2  FROM skill s
+  3  INNER JOIN consultant_skill cs ON s.skill_id = cs.skill_id
+  4  WHERE cs.c_id = 102 AND cs.certification = 'Certified';
+
+no rows selected
+
+SQL> 
+SQL> SELECT p.project_name
+  2  FROM project p
+  3  INNER JOIN project_consultant pc ON p.p_id = pc.p_id
+  4  WHERE pc.c_id = 1 AND pc.roll_off_date IS NULL;
+
+no rows selected
+
+SQL> 
+SQL> SELECT s.skill_description, c.c_first, c.c_last
+  2  FROM skill s
+  3  INNER JOIN consultant_skill cs ON s.skill_id = cs.skill_id
+  4  INNER JOIN consultant c ON cs.c_id = c.c_id
+  5  WHERE cs.certification = 'Certified';
+
+no rows selected
+
+SQL> 
+SQL> SELECT p.project_name
+  2  FROM project p
+  3  INNER JOIN project_consultant pc ON p.p_id = pc.p_id
+  4  INNER JOIN consultant c ON pc.c_id = c.c_id
+  5  WHERE c.c_first = 'Mark' AND c.c_last = 'Myer';
+
+no rows selected
+
+SQL> 
+SQL> SELECT p.project_name, c.c_first, c.c_last
+  2  FROM project p
+  3  INNER JOIN consultant c ON p.mgr_id = c.c_id;
+
+PROJECT_NAME                   C_FIRST              C_LAST                      
+------------------------------ -------------------- --------------------        
+Hardware Support Intranet      Janet                Park                        
+Hardware Support Interface     Sarah                Carlson                     
+Hardware Support Database      Brian                Zhang                       
+Teller Support System          Janet                Park                        
+Internet Advertising           Janet                Park                        
+Network Design                 Paul                 Courtlandt                  
+Exploration Database           Brian                Zhang                       
+
+7 rows selected.
+
+SQL> 
+SQL> SELECT p.project_name, parent.project_name AS parent_project_name
+  2  FROM project p
+  3  LEFT JOIN project parent ON p.parent_p_id = parent.p_id;
+
+PROJECT_NAME                   PARENT_PROJECT_NAME                              
+------------------------------ ------------------------------                   
+Hardware Support Interface     Hardware Support Intranet                        
+Hardware Support Database      Hardware Support Intranet                        
+Network Design                 Internet Advertising                             
+Hardware Support Intranet                                                       
+Teller Support System                                                           
+Internet Advertising                                                            
+Exploration Database                                                            
+
+7 rows selected.
+
+SQL> 
+SQL> SELECT p.project_name, parent.project_name AS parent_project_name
+  2  FROM project p
+  3  LEFT JOIN project parent ON p.parent_p_id = parent.p_id OR (p.parent_p_id IS NULL AND parent.p_id IS NULL);
+
+PROJECT_NAME                   PARENT_PROJECT_NAME                              
+------------------------------ ------------------------------                   
+Hardware Support Interface     Hardware Support Intranet                        
+Hardware Support Database      Hardware Support Intranet                        
+Network Design                 Internet Advertising                             
+Hardware Support Intranet                                                       
+Teller Support System                                                           
+Internet Advertising                                                            
+Exploration Database                                                            
+
+7 rows selected.
+
+SQL> 
+SQL> SPOOL OFF;

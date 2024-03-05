@@ -1,0 +1,48 @@
+/ as sysdba
+DROP USER c##lennin_Smidterm_Q3 CASCADE;
+CREATE USER c##lennin_Smidterm_Q3 IDENTIFIED BY 123;
+GRANT CONNECT, RESOURCE, DBA TO c##lennin_Smidterm_Q3;
+ALTER USER c##lennin_Smidterm_Q3 QUOTA 100M on users;
+CONNECT c##lennin_Smidterm_Q3/123;
+
+SPOOL C:\Users\lenni\Escritorio\SPOOLexam3.txt;
+
+CREATE TABLE ADVISOR(
+    AdvisorID NUMBER,
+    AdvisorName VARCHAR(20) NOT NULL,
+    CONSTRAINT AdvisorID_PK PRIMARY KEY(AdvisorID)
+);
+
+CREATE TABLE STUDENT(
+    StudentID NUMBER,
+    StudentName VARCHAR(20) NOT NULL,
+    BirthDate DATE,
+    AdvisorID NUMBER,
+    Gender VARCHAR(1),
+    CONSTRAINT StudentID_PK PRIMARY KEY(StudentID),
+    CONSTRAINT AdvisorID_FK FOREIGN KEY(AdvisorID) REFERENCES ADVISOR (AdvisorID),
+    CONSTRAINT Gender_Check CHECK (Gender IN ('M', 'F', 'm', 'f'))
+);
+
+CREATE TABLE COURSE(
+    CourseID NUMBER,
+    CourseTitle VARCHAR(20),
+    Credits NUMBER CHECK(Credits > 0),
+    CONSTRAINT CourseID_PK PRIMARY KEY(CourseID)
+);
+
+CREATE TABLE ENROLLMENT(
+    StudentID NUMBER,
+    CourseID NUMBER,
+    Grade NUMBER,
+    CONSTRAINT StudentID_FK FOREIGN KEY (StudentID) REFERENCES STUDENT(StudentID),
+    CONSTRAINT CourseID_FK FOREIGN KEY (CourseID) REFERENCES COURSE(CourseID)
+);
+
+INSERT INTO ADVISOR VALUES(1, 'Ramiro');
+INSERT INTO STUDENT VALUES(10, 'Lennin', TO_DATE('04/11/2003', 'MM/DD/YYYY'), 1, 'M');
+INSERT INTO COURSE VALUES(100, 'Math', 20);
+INSERT INTO ENROLLMENT VALUES(10, 100, 7);
+
+
+SPOOL OFF;

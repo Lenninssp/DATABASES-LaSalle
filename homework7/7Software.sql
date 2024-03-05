@@ -1,6 +1,6 @@
 --script to create Software Experts database
 -- revised 27/02/204 Huu Con Nguyen
-connect sys/sys as sysdba;
+/ as sysdba
 DROP USER c##des04 CASCADE;
 CREATE USER c##des04 IDENTIFIED BY tiger;
 GRANT connect , resource, create view TO c##des04;
