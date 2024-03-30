@@ -1,0 +1,377 @@
+SQL> 
+SQL> 
+SQL> start C:\Users\lenni\Developer\lasalle\DATABASES-LaSalle\homework8\7Software.sql;
+
+Grant succeeded.
+
+
+User dropped.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+User altered.
+
+Connected.
+DROP TABLE evaluation CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE project_consultant CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE project_skill CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE project CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE client CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE consultant_skill CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE skill CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE consultant CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table altered.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> 
+SQL> CREATE OR REPLACE VIEW Project_Consultant_View AS
+  2  SELECT p.project_name, c.c_first
+  3  FROM project_consultant pc
+  4  JOIN project p ON pc.p_id = p.p_id
+  5  JOIN consultant c ON pc.c_id = c.c_id;
+
+View created.
+
+SQL> GRANT SELECT, INSERT, DELETE, UPDATE ON Project_Consultant_View TO c##nora04;
+
+Grant succeeded.
+
+SQL> CONNECT c##nora04/password;
+Connected.
+SQL> SELECT * FROM c##des04.Project_Consultant_View;
+
+PROJECT_NAME                   C_FIRST                                          
+------------------------------ --------------------                             
+Hardware Support Intranet      Sheila                                           
+Hardware Support Intranet      Sarah                                            
+Hardware Support Intranet      Paul                                             
+Hardware Support Intranet      Janet                                            
+Hardware Support Interface     Mark                                             
+Hardware Support Interface     Janet                                            
+Hardware Support Database      Sarah                                            
+Hardware Support Database      Paul                                             
+Teller Support System          Brian                                            
+Teller Support System          Paul                                             
+Teller Support System          Janet                                            
+
+PROJECT_NAME                   C_FIRST                                          
+------------------------------ --------------------                             
+Internet Advertising           Sarah                                            
+Internet Advertising           Janet                                            
+Network Design                 Sarah                                            
+Network Design                 Paul                                             
+Exploration Database           Mark                                             
+Exploration Database           Brian                                            
+
+17 rows selected.
+
+SQL> SPOOL OFF;

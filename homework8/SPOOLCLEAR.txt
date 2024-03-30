@@ -1,0 +1,459 @@
+SQL> 
+SQL> start C:\Users\lenni\Developer\lasalle\DATABASES-LaSalle\homework8\7clearwater.sql;
+
+Grant succeeded.
+
+
+User dropped.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+User altered.
+
+Connected.
+DROP TABLE order_line CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE shipment_line CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE shipment CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE inventory CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE color CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE item CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE category CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE orders CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE order_source CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE customer CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> 
+SQL> CREATE TABLE order_line_archive (
+  2      old_o_id NUMBER(8),
+  3      old_inv_id NUMBER(10),
+  4      old_ol_quantity NUMBER(4),
+  5      CONSTRAINT order_line_archive_pk PRIMARY KEY (old_o_id, old_inv_id),
+  6      CONSTRAINT order_line_archive_fk FOREIGN KEY (old_o_id) REFERENCES orders (o_id),
+  7      CONSTRAINT order_line_archive_inv_fk FOREIGN KEY (old_inv_id) REFERENCES inventory (inv_id)
+  8  );
+
+Table created.
+
+SQL> 
+SQL> CREATE VIEW OLD_ORDER_DETAIL AS
+  2  SELECT
+  3      ola.old_o_id,
+  4      ola.old_inv_id,
+  5      ola.old_ol_quantity,
+  6      o.o_date AS order_date,
+  7      o.o_methpmt AS method_of_payment,
+  8      i.item_desc AS item_description,
+  9      c.c_last AS customer_last_name,
+ 10      c.c_first AS customer_first_name
+ 11  FROM
+ 12      order_line_archive ola
+ 13  JOIN
+ 14      orders o ON ola.old_o_id = o.o_id
+ 15  JOIN
+ 16      inventory inv ON ola.old_inv_id = inv.inv_id
+ 17  JOIN
+ 18      item i ON inv.item_id = i.item_id
+ 19  JOIN
+ 20      customer c ON o.c_id = c.c_id;
+
+View created.
+
+SQL> 
+SQL> GRANT SELECT, INSERT, DELETE, UPDATE ON OLD_ORDER_DETAIL TO c##nora02;
+
+Grant succeeded.
+
+SQL> 
+SQL> CONNECT c##nora02/123;
+Connected.
+SQL> 
+SQL> SELECT * FROM c##des02.OLD_ORDER_DETAIL;
+
+no rows selected
+
+SQL> 
+SQL> SPOOL OFF;
