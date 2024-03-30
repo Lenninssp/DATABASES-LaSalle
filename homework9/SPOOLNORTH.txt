@@ -1,0 +1,98 @@
+SQL> 
+SQL> --1--
+SQL> SELECT C_SEC_ID, SEC_NUM, C_SEC_DAY, TO_CHAR(C_SEC_TIME, 'HH:MI AM') AS C_SEC_TIME
+  2  FROM course_section
+  3  WHERE C_SEC_DAY = 'MWF';
+
+  C_SEC_ID    SEC_NUM C_SEC_DAY  C_SEC_TI                                       
+---------- ---------- ---------- --------                                       
+         1          1 MWF        10:00 AM                                       
+         3          3 MWF        08:00 AM                                       
+         6          1 MWF        09:00 AM                                       
+         7          2 MWF        10:00 AM                                       
+         9          1 MWF        02:00 PM                                       
+        10          2 MWF        03:00 PM                                       
+
+6 rows selected.
+
+SQL> 
+SQL> --2--
+SQL> SELECT S_FIRST, S_LAST, COALESCE(s_mi, 'N/A') AS s_mi
+  2  FROM student
+  3  WHERE s_mi IS NULL;
+
+S_FIRST                        S_LAST                         S_M               
+------------------------------ ------------------------------ ---               
+Daniel                         Black                          N/A               
+
+SQL> 
+SQL> --3--
+SQL> SELECT C_SEC_ID, SEC_NUM, C_SEC_DAY, LTRIM(TO_CHAR(C_SEC_TIME, 'FMHH:MI AM AM')) AS C_SEC_TIME
+  2  FROM course_section;
+
+  C_SEC_ID    SEC_NUM C_SEC_DAY  C_SEC_TIME                                     
+---------- ---------- ---------- -----------                                    
+         1          1 MWF        10:0 AM AM                                     
+         2          2 TR         9:30 AM AM                                     
+         3          3 MWF        8:0 AM AM                                      
+         4          1 TR         11:0 AM AM                                     
+         5          2 TR         2:0 PM PM                                      
+         6          1 MWF        9:0 AM AM                                      
+         7          2 MWF        10:0 AM AM                                     
+         8          1 TR         8:0 AM AM                                      
+         9          1 MWF        2:0 PM PM                                      
+        10          2 MWF        3:0 PM PM                                      
+        11          1 MTWRF      8:0 AM AM                                      
+
+  C_SEC_ID    SEC_NUM C_SEC_DAY  C_SEC_TIME                                     
+---------- ---------- ---------- -----------                                    
+        12          1 MTWRF      8:0 AM AM                                      
+        13          1 MTWRF      9:0 AM AM                                      
+
+13 rows selected.
+
+SQL> 
+SQL> --4--
+SQL> UPDATE student
+  2  SET time_enrolled = time_enrolled + INTERVAL '12-0' YEAR TO MONTH;
+
+6 rows updated.
+
+SQL> 
+SQL> UPDATE course_section
+  2  SET C_SEC_TIME = C_SEC_TIME + INTERVAL '30' MINUTE;
+
+13 rows updated.
+
+SQL> 
+SQL> --5--
+SQL> SELECT *
+  2  FROM enrollment
+  3  WHERE grade IS NULL OR grade != 'C';
+
+      S_ID   C_SEC_ID G                                                         
+---------- ---------- -                                                         
+         1          1 A                                                         
+         1          4 A                                                         
+         1          6 B                                                         
+         1          9 B                                                         
+         2          5 B                                                         
+         2          6 A                                                         
+         2          9 B                                                         
+         3         12                                                           
+         3         13                                                           
+         4         11                                                           
+         4         12                                                           
+
+      S_ID   C_SEC_ID G                                                         
+---------- ---------- -                                                         
+         5          1 B                                                         
+         5         11                                                           
+         5         13                                                           
+         6         11                                                           
+         6         12                                                           
+
+16 rows selected.
+
+SQL> 
+SQL> SPOOL OFF;
