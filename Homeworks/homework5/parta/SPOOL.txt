@@ -1,0 +1,406 @@
+SQL> CREATE TABLE CUSTOMER (
+  2      CustID NUMBER,
+  3      CustName VARCHAR2(50),
+  4      Phone NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> ALTER TABLE CUSTOMER
+  2  ADD CONSTRAINT CustID_PK PRIMARY KEY(CustID);
+
+Table altered.
+
+SQL> 
+SQL> CREATE TABLE ORDERS(
+  2      OID NUMBER,
+  3      Odate DATE,
+  4      CustID NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> ALTER TABLE ORDERS
+  2  ADD CONSTRAINT OID_PK PRIMARY KEY(OID);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE ORDERS
+  2  ADD CONSTRAINT CustID_FK FOREIGN KEY (CustID) REFERENCES CUSTOMER (CustID);
+
+Table altered.
+
+SQL> 
+SQL> CREATE TABLE PRODUCT (
+  2      ProductID NUMBER,
+  3      Description VARCHAR2(50),
+  4      Price NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT ProductID_PK PRIMARY KEY(ProductID);
+
+Table altered.
+
+SQL> 
+SQL> CREATE TABLE ORDER_LINE(
+  2      ProductID NUMBER,
+  3      OID NUMBER,
+  4      Quantity NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> ALTER TABLE ORDER_LINE
+  2  ADD CONSTRAINT ProductID_OID_PK PRIMARY KEY (ProductID, OID);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE ORDER_LINE
+  2  ADD CONSTRAINT ProductID_FK FOREIGN KEY (ProductID) REFERENCES PRODUCT (ProductID);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE ORDER_LINE
+  2  ADD CONSTRAINT OID_FK FOREIGN KEY (OID) REFERENCES ORDERS (OID);
+
+Table altered.
+
+SQL> 
+SQL> CREATE TABLE SUPPLIER (
+  2      Supplier_ID NUMBER,
+  3      Supplier_Name VARCHAR2(50)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> ALTER TABLE SUPPLIER
+  2  ADD CONSTRAINT Supplier_ID_PK PRIMARY KEY (Supplier_ID);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE CUSTOMER
+  2  MODIFY (CustName VARCHAR2(50) NOT NULL);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE PRODUCT
+  2  MODIFY (Description VARCHAR2(50) NOT NULL);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE PRODUCT
+  2  ADD CONSTRAINT Price_GT_0 CHECK (Price > 0);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> DESC LOCATION
+ERROR:
+ORA-04043: object LOCATION does not exist 
+
+
+SQL> DESC ORDERS
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ OID                                       NOT NULL NUMBER
+ ODATE                                              DATE
+ CUSTID                                             NUMBER
+
+SQL> DESC PRODUCT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCTID                                 NOT NULL NUMBER
+ DESCRIPTION                               NOT NULL VARCHAR2(50)
+ PRICE                                              NUMBER
+
+SQL> DESC ORDER_LINE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRODUCTID                                 NOT NULL NUMBER
+ OID                                       NOT NULL NUMBER
+ QUANTITY                                           NUMBER
+
+SQL> DESC SUPPLIER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUPPLIER_ID                               NOT NULL NUMBER
+ SUPPLIER_NAME                                      VARCHAR2(50)
+
+SQL> 
+SQL> SELECT table_name, column_name, data_type, data_length
+  2  FROM user_tab_columns;
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+CUSTOMER                                                                        
+CUSTID                                                                          
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+CUSTOMER                                                                        
+CUSTNAME                                                                        
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+CUSTOMER                                                                        
+PHONE                                                                           
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+ORDERS                                                                          
+OID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+ORDERS                                                                          
+ODATE                                                                           
+DATE                                                                            
+          7                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+ORDERS                                                                          
+CUSTID                                                                          
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+ORDER_LINE                                                                      
+PRODUCTID                                                                       
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+ORDER_LINE                                                                      
+OID                                                                             
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+ORDER_LINE                                                                      
+QUANTITY                                                                        
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+PRODUCT                                                                         
+PRODUCTID                                                                       
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+PRODUCT                                                                         
+DESCRIPTION                                                                     
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+PRODUCT                                                                         
+PRICE                                                                           
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+SUPPLIER                                                                        
+SUPPLIER_ID                                                                     
+NUMBER                                                                          
+         22                                                                     
+                                                                                
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+DATA_TYPE                                                                       
+--------------------------------------------------------------------------------
+DATA_LENGTH                                                                     
+-----------                                                                     
+SUPPLIER                                                                        
+SUPPLIER_NAME                                                                   
+VARCHAR2                                                                        
+         50                                                                     
+                                                                                
+
+14 rows selected.
+
+SQL> 
+SQL> SELECT constraint_name, constraint_type
+  2  FROM user_constraints;
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+CUSTID_FK                                                                       
+R                                                                               
+                                                                                
+OID_FK                                                                          
+R                                                                               
+                                                                                
+PRODUCTID_FK                                                                    
+R                                                                               
+                                                                                
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+OID_PK                                                                          
+P                                                                               
+                                                                                
+CUSTID_PK                                                                       
+P                                                                               
+                                                                                
+PRODUCTID_PK                                                                    
+P                                                                               
+                                                                                
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+PRODUCTID_OID_PK                                                                
+P                                                                               
+                                                                                
+SUPPLIER_ID_PK                                                                  
+P                                                                               
+                                                                                
+SYS_C008470                                                                     
+C                                                                               
+                                                                                
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+SYS_C008471                                                                     
+C                                                                               
+                                                                                
+PRICE_GT_0                                                                      
+C                                                                               
+                                                                                
+
+11 rows selected.
+
+SQL> 
+SQL> SPOOL OFF;

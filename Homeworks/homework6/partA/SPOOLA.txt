@@ -1,0 +1,108 @@
+SQL> 
+SQL> CREATE TABLE COURSE(
+  2      CourseID NUMBER,
+  3      CourseName VARCHAR2(10),
+  4      Credits NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE TERM(
+  2      TermID NUMBER,
+  3      Descriptionn VARCHAR2(10),
+  4      Status VARCHAR2(10)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE LOCATION(
+  2      LocID NUMBER,
+  3      Building VARCHAR2(10),
+  4      Room NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE STUDENT(
+  2      StudID NUMBER,
+  3      SName VARCHAR2(10),
+  4      Birthdate DATE
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE ENROLLMENT(
+  2      StudID NUMBER,
+  3      CSectionID NUMBER,
+  4      GRADE NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE COURSE_SECTION(
+  2      CSectionID NUMBER,
+  3      MaxCapacity NUMBER,
+  4      CourseID NUMBER,
+  5      TermID NUMBER,
+  6      LocID NUMBER
+  7  );
+
+Table created.
+
+SQL> ALTER TABLE COURSE ADD CONSTRAINT CourseID_PK PRIMARY KEY (CourseID);
+
+Table altered.
+
+SQL> ALTER TABLE TERM ADD CONSTRAINT TermID_PK PRIMARY KEY (TermID);
+
+Table altered.
+
+SQL> ALTER TABLE LOCATION ADD CONSTRAINT LocID_PK PRIMARY KEY (LocID);
+
+Table altered.
+
+SQL> ALTER TABLE STUDENT ADD CONSTRAINT StudID_PK PRIMARY KEY (StudID);
+
+Table altered.
+
+SQL> ALTER TABLE COURSE_SECTION ADD CONSTRAINT CSectionID_PK PRIMARY KEY (CSectionID);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE ENROLLMENT ADD CONSTRAINT StudID_FK FOREIGN KEY (StudID) REFERENCES STUDENT (StudID);
+
+Table altered.
+
+SQL> ALTER TABLE ENROLLMENT ADD CONSTRAINT CSectionID_FK FOREIGN KEY (CSectionID) REFERENCES COURSE_SECTION (CSectionID);
+
+Table altered.
+
+SQL> ALTER TABLE COURSE_SECTION ADD CONSTRAINT CourseID_FK FOREIGN KEY (CourseID) REFERENCES COURSE (CourseID);
+
+Table altered.
+
+SQL> ALTER TABLE COURSE_SECTION ADD CONSTRAINT TermID_FK FOREIGN KEY (TermID) REFERENCES TERM (TermID);
+
+Table altered.
+
+SQL> ALTER TABLE COURSE_SECTION ADD CONSTRAINT LocID_FK FOREIGN KEY (LocID) REFERENCES LOCATION (LocID);
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE TERM ADD CONSTRAINT Status_Check CHECK (Status IN ('OPEN', 'CLOSED'));
+
+Table altered.
+
+SQL> 
+SQL> ALTER TABLE LOCATION ADD CONSTRAINT Room_Unique UNIQUE (Room);
+
+Table altered.
+
+SQL> SPOOL OFF;
